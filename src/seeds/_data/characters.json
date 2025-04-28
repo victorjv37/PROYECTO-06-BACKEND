@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Naruto Uzumaki",
+    "rank": "Genin", 
+    "clan": "Uzumaki",
+    "villageName": "Konohagakure" 
+  },
+  {
+    "name": "Sasuke Uchiha",
+    "rank": "Genin",
+    "clan": "Uchiha",
+    "villageName": "Konohagakure"
+  },
+  {
+    "name": "Sakura Haruno",
+    "rank": "Chunin", 
+    "villageName": "Konohagakure"
+  },
+  {
+    "name": "Kakashi Hatake",
+    "rank": "Jonin",
+    "villageName": "Konohagakure"
+  },
+  {
+    "name": "Gaara",
+    "rank": "Kage", 
+    "villageName": "Sunagakure"
+  },
+  {
+    "name": "Temari",
+    "rank": "Jonin",
+    "villageName": "Sunagakure"
+  },
+  {
+    "name": "Zabuza Momochi",
+    "rank": "Missing-nin", 
+    "villageName": "Kirigakure"
+  },
+  {
+    "name": "Killer B",
+    "rank": "Jonin", 
+    "clan": "Yotsuki",
+    "villageName": "Kumogakure"
+  },
+   {
+    "name": "Pain (Nagato)",
+    "rank": "Missing-nin",
+    "clan": "Uzumaki",
+    "villageName": "Amegakure"
+  }
+] 

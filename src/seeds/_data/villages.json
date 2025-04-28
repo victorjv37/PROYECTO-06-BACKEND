@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Konohagakure",
+    "country": "Land of Fire",
+    "characters": []
+  },
+  {
+    "name": "Sunagakure",
+    "country": "Land of Wind",
+    "characters": []
+  },
+  {
+    "name": "Kirigakure",
+    "country": "Land of Water",
+    "characters": []
+  },
+  {
+    "name": "Kumogakure",
+    "country": "Land of Lightning",
+    "characters": []
+  },
+  {
+    "name": "Iwagakure",
+    "country": "Land of Earth",
+    "characters": []
+  },
+  {
+    "name": "Amegakure",
+    "country": "Land of Rain",
+    "characters": []
+  }
+] 
