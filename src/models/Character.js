@@ -9,7 +9,7 @@ const characterSchema = new mongoose.Schema({
     maxlength: [30, "El nombre no puede tener mas de 30 caracteres"],
   },
   rank: {
-    type: Number,
+    type: String,
     required: [true, "Especifica rango"],
     enum: [
       "Estudiante",

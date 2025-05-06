@@ -30,10 +30,19 @@ const importData = async () => {
     });
 
     //le asigno el id de la aldea a cada personaje
-    const personajesConAldea = personajesData.map((personaje) => ({
-      ...personaje,
-      village: mapaAldeas[personaje.villageName],
-    }));
+    const personajesConAldea = personajesData.map((personaje) => {
+      // Solo tomamos los campos válidos
+      const nuevoPersonaje = {
+        name: personaje.name,
+        rank: personaje.rank,
+        village: mapaAldeas[personaje.villageName],
+      };
+      // Solo agregamos clan si existe
+      if (personaje.clan) {
+        nuevoPersonaje.clan = personaje.clan;
+      }
+      return nuevoPersonaje;
+    });
 
     const personajes = await Character.create(personajesConAldea);
 
