@@ -44,15 +44,7 @@ exports.createVillage = async (req, res, next) => {
 //PUT de una aldea
 exports.updateVillage = async (req, res, next) => {
   try {
-    const { name, country } = req.body;
-    const village = await Village.findByIdAndUpdate(
-      req.params.id,
-      { name, country },
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+    const village = await Village.findById(req.params.id);
 
     if (!village) {
       return res.status(404).json({
@@ -60,7 +52,20 @@ exports.updateVillage = async (req, res, next) => {
         error: `Aldea no encontrada, id ${req.params.id}`,
       });
     }
-    res.status(200).json({ success: true, data: village });
+
+    const { name, country } = req.body;
+    const updatedData = { name, country };
+
+    const updatedVillage = await Village.findByIdAndUpdate(
+      req.params.id,
+      updatedData,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    res.status(200).json({ success: true, data: updatedVillage });
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
   }

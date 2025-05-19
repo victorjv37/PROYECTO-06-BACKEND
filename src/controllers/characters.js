@@ -4,7 +4,13 @@ const Village = require("../models/Village");
 //GET de todos los personajes
 exports.getCharacters = async (req, res, next) => {
   try {
-    const characters = await Character.find().populate({
+    let query = {};
+
+    if (req.params.villageId) {
+      query = { village: req.params.villageId };
+    }
+
+    const characters = await Character.find(query).populate({
       path: "village",
       select: "name country",
     });
@@ -41,17 +47,25 @@ exports.getCharacter = async (req, res, next) => {
 //POST de un personaje
 exports.createCharacter = async (req, res, next) => {
   try {
-    req.body.village = req.params.villageId;
+    if (req.params.villageId) {
+      req.body.village = req.params.villageId;
+    }
 
-    const village = await Village.findById(req.params.villageId);
+    const village = await Village.findById(req.body.village);
     if (!village) {
       return res.status(404).json({
         success: false,
-        error: `Village not found with id of ${req.params.villageId}`,
+        error: `Aldea no encontrada con id ${req.body.village}`,
       });
     }
 
     const character = await Character.create(req.body);
+
+    await Village.findByIdAndUpdate(
+      req.body.village,
+      { $addToSet: { characters: character._id } },
+      { new: true }
+    );
 
     res.status(201).json({ success: true, data: character });
   } catch (err) {
@@ -71,10 +85,22 @@ exports.updateCharacter = async (req, res, next) => {
       });
     }
 
+    const oldVillageId = character.village.toString();
+
     character = await Character.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
+
+    if (req.body.village && oldVillageId !== req.body.village) {
+      await Village.findByIdAndUpdate(oldVillageId, {
+        $pull: { characters: character._id },
+      });
+
+      await Village.findByIdAndUpdate(req.body.village, {
+        $addToSet: { characters: character._id },
+      });
+    }
 
     res.status(200).json({ success: true, data: character });
   } catch (err) {
@@ -93,6 +119,10 @@ exports.deleteCharacter = async (req, res, next) => {
         error: `Character not found with id of ${req.params.id}`,
       });
     }
+
+    await Village.findByIdAndUpdate(character.village, {
+      $pull: { characters: character._id },
+    });
 
     await character.deleteOne();
 
